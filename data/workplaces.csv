@@ -1,0 +1,16 @@
+WorkplaceID,Name,Type,Latitude,Longitude
+WP000,Nguyen-Diaz,Construction,52.381731,4.837419
+WP001,Stokes-Martin,Warehouse,52.37662,4.884249
+WP002,Morris and Sons,Warehouse,52.384614,4.91886
+WP003,"Waters, Cantrell and Rice",Construction,52.373572,4.895763
+WP004,"Fuller, Richardson and Wagner",Warehouse,52.387792,4.850562
+WP005,"Chung, Castro and Barber",Office,52.341082,4.901571
+WP006,Mitchell-Smith,Warehouse,52.360884,4.888758
+WP007,Carrillo Ltd,Construction,52.406808,4.911126
+WP008,Lopez Ltd,Warehouse,52.422941,4.914382
+WP009,"Marquez, Mathews and Medina",Construction,52.36305,4.897755
+WP010,Powers-Blake,Factory,52.379545,4.840229
+WP011,Curtis Ltd,Office,52.375877,4.900439
+WP012,Austin-Mayo,Warehouse,52.402156,4.932922
+WP013,Long LLC,Warehouse,52.382597,4.891874
+WP014,Williams-Wagner,Factory,52.343109,4.890785

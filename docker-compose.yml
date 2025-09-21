@@ -1,0 +1,16 @@
+version: '3.8'
+services:
+  ml:
+    build: ./ml
+    volumes:
+      - ./data:/app/data
+  dash:
+    build: ./dash
+    ports:
+      - "8050:8050"
+    volumes:
+      - ./data:/app/data
+  notifier:
+    build: ./notifier
+    volumes:
+      - ./data:/app/data

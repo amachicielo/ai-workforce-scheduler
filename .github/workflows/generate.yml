@@ -1,0 +1,29 @@
+name: Generate Synthetic Data
+
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:   # ex manual also
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Docker
+        uses: docker/setup-buildx-action@v2
+
+      - name: Build ML image
+        run: docker compose build ml
+
+      - name: Generate datasets
+        run: make generate-all
+
+      - name: Upload datasets as artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: synthetic-datasets
+          path: data/*.csv
