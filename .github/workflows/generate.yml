@@ -3,7 +3,7 @@ name: Generate Synthetic Data
 on:
   push:
     branches: [ "main" ]
-  workflow_dispatch:   # ex manual also
+  workflow_dispatch:
 
 jobs:
   build:
@@ -11,7 +11,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v3
 
       - name: Set up Docker
         uses: docker/setup-buildx-action@v2
@@ -27,3 +27,20 @@ jobs:
         with:
           name: synthetic-datasets
           path: data/*.csv
+
+      - name: Create ZIP file
+        run: |
+          mkdir release
+          cp data/*.csv release/
+          cd release
+          zip synthetic-datasets.zip *.csv
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: v${{ github.run_number }}
+          name: "Synthetic Datasets Build ${{ github.run_number }}"
+          body: "Auto-generated synthetic datasets."
+          files: release/synthetic-datasets.zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
