@@ -1,0 +1,71 @@
+name: Full AI Workforce Pipeline
+
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  pipeline:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Docker
+        uses: docker/setup-buildx-action@v2
+
+      - name: Build ML image
+        run: docker compose build ml
+
+      # 1. Generate datasets
+      - name: Generate datasets
+        run: make generate-all
+
+      # 2. Run EDA
+      - name: Run EDA
+        run: make eda
+
+      # 3. Train absence prediction models
+      - name: Train absence prediction models
+        run: make predict-absences
+
+      # 4. Optimize schedule
+      - name: Optimize schedule
+        run: make optimize-schedule
+
+      # 5. Visualize optimized schedule
+      - name: Visualize schedule
+        run: make visualize-schedule
+
+      # 6. Collect outputs
+      - name: Package results
+        run: |
+          mkdir release
+          cp data/*.csv release/ || true
+          cp data/plots/*.png release/ || true
+          cp data/absence_metrics.txt release/ || true
+          cd release
+          zip -r synthetic-results.zip *
+
+      # 7. Upload artifacts (for Actions)
+      - name: Upload pipeline results
+        uses: actions/upload-artifact@v4
+        with:
+          name: synthetic-results
+          path: release/synthetic-results.zip
+
+      # 8. Create GitHub Release
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: v${{ github.run_number }}
+          name: "AI Workforce Pipeline Build ${{ github.run_number }}"
+          body: "Full pipeline results: datasets, ML metrics, optimized assignments, and plots."
+          files: release/synthetic-results.zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
