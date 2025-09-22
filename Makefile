@@ -26,4 +26,10 @@ eda:
 predict-absences:
 	docker compose run --rm ml python predict_absences.py
 
+optimize-schedule:
+	docker compose run --rm ml python optimize_schedule.py
+
+visualize-schedule:
+	docker compose run --rm ml python visualize_schedule.py
+
 # ej. make generate-all   or   make generate-shifts
