@@ -1,5 +1,7 @@
 # AI Workforce Scheduler 🚀
 
+![Generate Synthetic Data](https://github.com/amachicielo/ai-workforce-scheduler/actions/workflows/generate.yml/badge.svg)
+
 ## Overview
 This project is part of a university **Final Year Project (TFG)** and also designed as a professional portfolio piece.  
 It demonstrates how to build an **AI/ML-powered workforce and transportation scheduler** with modern practices in **MLOps, DevOps, and Cloud**.
