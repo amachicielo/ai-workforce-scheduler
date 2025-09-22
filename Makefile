@@ -20,5 +20,10 @@ generate-shifts:
 clean:
 	rm -f data/*.csv
 
+eda:
+	docker compose run --rm ml python eda.py
+
+predict-absences:
+	docker compose run --rm ml python predict_absences.py
 
 # ej. make generate-all   or   make generate-shifts

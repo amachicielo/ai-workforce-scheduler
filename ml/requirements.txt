@@ -1,4 +1,6 @@
 pandas
 faker
 numpy
-
+scikit-learn
+matplotlib
+joblib
